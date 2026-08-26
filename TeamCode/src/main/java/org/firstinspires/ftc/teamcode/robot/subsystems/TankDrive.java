@@ -4,6 +4,8 @@ package org.firstinspires.ftc.teamcode.robot.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.Subsystem;
 
 import java.util.ArrayList;
@@ -71,6 +73,12 @@ public class TankDrive implements Subsystem {
         disabled = true;
         for (DcMotor motor : allMotors){
             motor.setPower(0);
+        }
+    }
+    @Override
+    public void postTelemetry(Telemetry telemetry){
+        for (DcMotor motor:allMotors){
+            telemetry.addData(String.valueOf(motor.getPortNumber()), motor.getPower());
         }
     }
 }
