@@ -23,7 +23,7 @@ public class BasicRobot extends Robot{
     public BasicRobot(Telemetry telemetry, HardwareMap hardwareMap){
         super(telemetry);
         this.drivetrain = new MecanumDrive(hardwareMap);
-        this.claw = new Claw(telemetry, hardwareMap);
+        this.claw = new Claw(hardwareMap);
         subsystems = new Subsystem[]{
                 drivetrain,
                 claw
@@ -39,10 +39,12 @@ public class BasicRobot extends Robot{
         telemetry.addLine("Driver Controlled telop is running!");
         updateSubsystems();
         defaultTelemetry();
+        telemetry.update();
     }
     /** Posts telemetry to the driver station we will want to see often. */
     @Override
     public void defaultTelemetry(){
-        claw.postTelemetry();
+        claw.postTelemetry(telemetry);
+        drivetrain.postTelemetry(telemetry);
     }
 }
