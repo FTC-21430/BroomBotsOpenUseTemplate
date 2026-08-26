@@ -15,7 +15,7 @@ This repository is intended to be opened and managed using Android Studio runnin
 ## The Opmodes Package
 // TODO
 
-## The Algorithms Package
+## The Resources Package
 // TODO
 
 ## Attribution
