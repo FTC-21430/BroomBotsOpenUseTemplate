@@ -7,10 +7,19 @@ import org.firstinspires.ftc.teamcode.robot.Subsystem;
 
 import java.util.ArrayList;
 
+/** Mecanum drive subsystem for holonomic (omnidirectional) robot movement. */
 public class MecanumDrive implements Subsystem {
     private boolean disabled = true;
-    private final ArrayList<DcMotor> allMotors = new ArrayList<>(); // all four wheel motors in one array, should be in order fl, fr, bl, br;
+    /** All four wheel motors ordered: front-left, front-right, back-left, back-right. */
+    private final ArrayList<DcMotor> allMotors = new ArrayList<>();
+    /** Cached power values corresponding to {@link #allMotors}. */
     private final ArrayList<Double> motorPowers = new ArrayList<>();
+
+    /**
+     * Initializes and configures all four drive motors from the hardware map.
+     *
+     * @param hardwareMap the robot's hardware map
+     */
     public MecanumDrive(HardwareMap hardwareMap){
         final DcMotor frontLeftMotor;
         final DcMotor frontRightMotor;
@@ -32,6 +41,13 @@ public class MecanumDrive implements Subsystem {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
     }
+    /**
+     * Calculates and caches motor powers for mecanum drive kinematics.
+     *
+     * @param forwardRate  forward/backward input [-1, 1]
+     * @param sidewaysRate strafe left/right input [-1, 1]
+     * @param turnRate     rotation input [-1, 1]
+     */
     public void setDrivePower(double forwardRate, double sidewaysRate, double turnRate){
         double frontLeftPower = forwardRate + sidewaysRate + turnRate;
         double frontRightPower = forwardRate - sidewaysRate - turnRate;
@@ -44,6 +60,7 @@ public class MecanumDrive implements Subsystem {
         motorPowers.add(backLeftPower);
         motorPowers.add(backRightPower);
     }
+    /** Applies cached motor powers to all drive motors; no-ops if disabled or powers are unset. */
     @Override
     public void update(){
         if (disabled) return; // do not do anything if the subsystem is disabled
@@ -52,6 +69,11 @@ public class MecanumDrive implements Subsystem {
             allMotors.get(i).setPower(motorPowers.get(i));
         }
     }
+    /**
+     * Enables or disables the drivetrain. Zeroes all motors when disabling.
+     *
+     * @param disable {@code true} to disable the subsystem
+     */
     @Override
     public void setDisabled(boolean disable){
         disabled = true;
