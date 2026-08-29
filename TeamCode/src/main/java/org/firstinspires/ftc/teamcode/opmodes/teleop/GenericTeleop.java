@@ -24,16 +24,24 @@ public class GenericTeleop extends OpMode {
      */
     @Override
     public void loop(){
+        // In case the robot is about to do something bad
+        if (gamepad1.shareWasPressed()){
+            robot.emergencyStop();
+        }
+        // Swing arm control.
+        if (gamepad1.dpadDownWasPressed()){
+            robot.arm.setTargetAngle(0);
+        }
+        if (gamepad1.dpadUpWasPressed()){
+            robot.arm.setTargetAngle(80);
+        }
         if (gamepad1.a){
             robot.claw.setPos(Claw.ClawPosition.CLOSED);
         }else{
             robot.claw.setPos(Claw.ClawPosition.OPEN);
         }
         robot.teleopUpdate();
-        // In case the robot is about to do something bad
-        if (gamepad1.shareWasPressed()){
-            robot.emergencyStop();
-        }
+
     }
 
 }
