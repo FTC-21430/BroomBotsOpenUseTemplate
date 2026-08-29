@@ -10,13 +10,34 @@ This repository is intended to be opened and managed using Android Studio runnin
 - Algorithms (Programs your team writes to have the robot a specific thing, ie point at position on the field)
 
 ## The Robot Package
-// TODO
+All of the robot specific parts, classes such as "Drive Train", "Clows", "Flywheel", etc...
+This also includes the robot master class, which brings everything together. 
+This repository includes the following example classes to demonstrate how to use the object oriented structure. 
+
+Robot.java (do not change, includes features such as alliance specification, e-stop, and runtime management)
+Subsystem.java (do not change)
+SpecificRobot.java (extends Robot.java and provides some specific actions that combine several subsystems, and holds your robot's subsystems)
+
+Subsystems
+- Drivetrain (The collection of motors that makes the robot base move around the field, implements Subsystem)
+- Claw (The code that runs the servo that moves the robot's claw)
+- Arm (The code that will smoothly control an arm that pivots around against gravity)
 
 ## The Opmodes Package
-// TODO
+- The code that is run on the driver station, which calls the robot specific classes and their methods.
+- the primary control loop of the program
+- General code that is abstracted to the highest level
+- This package currently includes:
 
-## The Algorithms Package
-// TODO
+  - Example Teleop
+  - ClawUtility (used to just test the claw without the rest of the robot)
+
+## The Resources Package
+- Extra algorithms or classes used by the robot and opmode packages to support your code. The super technical bits you want to be able to find easily.
+This package includes:
+- PIDController (code used for making a motor with sensor connected to the output move smooth / reliabe, tunable)
+- PIDFController (extension of the PID Controller class which includes a constant term to compensate for known effects on your motor, such as a spring or gravity)
+- ServoPlus (Makes the generic values of a servo in degrees, to make programming your system easier.
 
 ## Attribution
 Code contained within the `TeamCode` Module of this repositiory is managed and written by the members of FTC Team 21430, BroomBots. 
@@ -27,7 +48,8 @@ When using this project for your teams season, we request that your team attribu
 While none of these terms will be legally inforced, apart of Gracious Professionalism is crediting help that you recieve! Thank you!
 
 ## General Advice
-//TODO
+Learn more about Object Oriented Programming (OOP) which this project uses heavily, at this link : https://www.geeksforgeeks.org/java/object-oriented-programming-oops-concept-in-java/
+Contact broombots@broomfieldstem.org or 
 
 ## NOTICE This is a fork of the FTC SDK
 FTC SDK VERSION: 

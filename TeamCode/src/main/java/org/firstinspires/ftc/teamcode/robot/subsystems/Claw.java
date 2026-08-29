@@ -11,15 +11,13 @@ import org.firstinspires.ftc.teamcode.robot.Subsystem;
 public class Claw implements Subsystem {
     // Servo plus converts normal servo range (0-1) to degrees based on the range of motion of your desired output.
     private final ServoPlus clawServo;
-    private final Telemetry telemetry;
     private boolean disabled = true;
     public enum ClawPosition {
             OPEN,
             CLOSED
     }
     private ClawPosition currentPosition = ClawPosition.OPEN;
-    public Claw(Telemetry telemetry, HardwareMap hardwareMap){
-        this.telemetry = telemetry;
+    public Claw(HardwareMap hardwareMap){
         clawServo = new ServoPlus(hardwareMap.get(Servo.class, "clawServo"), 180);
     }
     public void setPos(ClawPosition position){
@@ -41,7 +39,8 @@ public class Claw implements Subsystem {
         this.disabled = disabled;
         clawServo.setServoPos(90); // Set servo to a safe position
     }
-    public void postTelemetry(){
+    @Override
+    public void postTelemetry(Telemetry telemetry){
         telemetry.addData("Current Claw Position", currentPosition.toString());
     }
 }

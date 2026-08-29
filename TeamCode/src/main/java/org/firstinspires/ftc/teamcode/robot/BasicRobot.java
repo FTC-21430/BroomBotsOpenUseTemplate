@@ -44,10 +44,12 @@ public class BasicRobot extends Robot{
         telemetry.addLine("Driver Controlled telop is running!");
         updateSubsystems();
         defaultTelemetry();
+        telemetry.update();
     }
     /** Posts telemetry to the driver station we will want to see often. */
     @Override
     public void defaultTelemetry(){
-        claw.postTelemetry();
+        claw.postTelemetry(telemetry);
+        drivetrain.postTelemetry(telemetry);
     }
 }
